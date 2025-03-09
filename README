@@ -1,0 +1,22 @@
+Abstract:
+Data acquisition (DAQ) is the process describing sampling signals that measure physical phenomena and
+converting them into digital signals. A Raspberry Pi Pico temperature Data Acquisition system was developed
+and benchmarked in order to investigate its limiting processes. By reading the onboard analogue-to-digital
+converter and transmitting each sample via a USB serial connection, the ADC conversion time was negligible
+(order of a few microseconds), whereas the transmission and formatting overhead was much higher (3–4 ms
+per sample). To study the data storage, four file-writing methods were implemented: CSV, Binary, HDF5, and
+JSON. The file size growth was monitored and the latency for a different number of samples. Binary files
+were the smallest in size, JSON the largest, with HDF5 and CSV in between. Despite the different formats,
+the system’s overall latency distribution was dominated by the USB transmission bottleneck rather than the
+chosen data format. In conclusion, optimising data transmission by sending fewer or more efficiently encoded
+characters is essential for improving throughput in this data acquisition system.
+
+
+Files:
+'onboard_temp_daq.c' triggersthe Pico to read the data through the sensor
+'pico_ro.py' displays the read temperature
+'plot_latency_csv.py' plots the latency distribution of the CSV files
+'plot_latency_all.py' plots the latency of Binary, HDF5 and JSON files
+'plot_file_sizes.py' analyses the file sizes of the different file types
+'plot_file_sizes_per_reading.py' displays the linearity of the size growth
+'sending.py' attempt at improving the DAQ process
